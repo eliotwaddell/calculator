@@ -32,10 +32,10 @@ function operate(operator, num1, num2)
 
 function expression(expr)
 {
-    /*if(!(expr.charAt(0) <= '9' && expr.charAt(0) >= '0'))//if the expression doesn't start with a number, chop off first operator, might be unnecessary
+    if(!(expr.charAt(expr.length) <= '9' && expr.charAt(0) >= '0'))//if the expression doesn't end with a number, chop off last operator
     {
-
-    }*/
+        expr = expr.slice(length-1,length);
+    }
     var regex = /\d+(\.\d+)?/g;//regular expression
     var opRegex = /[+\-*/]/g;
     var numbers = expr.match(regex).map(function(v) { return parseFloat(v) });//shoutout stackoverflow, maps each parsed "float" string to a float
@@ -102,28 +102,49 @@ function addToDisplay(newInput)//filters incoming input
     }
     if(['+','-','*','/'].indexOf(newInput) != -1)//if the input is an operator
     {
-        if(opUsed||!(userInput.charAt(userInput.length)>= '0' && userInput.charAt(userInput.length)<=0))
-        {
-            if(newInput == '-')//case that expr starts with negative number
-            {
-                userInput += newInput;
-                opUsed = true;//operator is now used
-                return;
-            }
-            return;
-        }
-        if()
+        
     }
+    opUsed = false;
+    userInput += newInput;
+    return;
 
+}
+
+function update()//function used to literally update the screen
+{
+    var shownDisplay = userInput;
+    if(userInput.length>8)
+    {
+        shownDisplay = userInput.substr(userInput.length-8,userInput.length);
+    }
+    display.textContent = shownDisplay;
 }
 
 for (var x of buttons)//iterates through the input buttons to allow them to be used w/eventlisteners
 {
-    if(x.className=="displayed")
+    if(x.className=="displayed")//buttons that cause the display to change.
     {
         x.addEventListener("click", function(e)
         {
             addToDisplay(e.target.id);
+            update();
+        });
+    }
+    if(x.id == "AC")//resets the display and stored values
+    {
+        x.addEventListener("click", function(e)
+        {
+            userInput = '';
+            opUsed = false;
+            pointUsed = false;
+            update();
+        });
+    }
+    if(x.id == 'SQRT')
+    {
+        x.addEventListener("click", function(e)
+        {
+
         });
     }
 }
