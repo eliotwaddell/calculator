@@ -1,0 +1,53 @@
+#calculator {
+    display: block;
+    width: 20vw;
+    height: 30vw;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 2.5vw;
+    border-bottom: 2.5vw solid blue;
+    border-left: 2.5vw solid blue;
+    border-right: 2.5vw solid blue;
+    border-top: 2.5vw solid blue;
+    background-color: black;
+}
+
+#screen {
+    width: 20vw;
+    height: 5vw;
+    font-family: monospace;
+    font-size: 4vw;
+    color: white;
+    text-align: right;
+
+}
+
+#screenBorder {
+    width: 20vw;
+    height: 5vw;
+    background-color: blue;
+    font-size: 2vw;
+    font-family: monospace;
+    color: white;
+    text-align: right;
+    vertical-align: "bottom";
+    
+}
+
+#buttons {
+    width: 20vw;
+    height: 20vw;
+}
+
+#buttons div {
+    width: 4vw;
+    height: 5vw;
+    float: left;
+    text-align: center;
+    vertical-align: middle;
+    font-family: monospace;
+    color: white;
+    line-height: 5vw;
+    outline: 1px solid white;
+}
+
