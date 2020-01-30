@@ -10,6 +10,11 @@
     border-right: 2.5vw solid blue;
     border-top: 2.5vw solid blue;
     background-color: black;
+
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -o-user-select: none;
 }
 
 #screen {
@@ -46,8 +51,19 @@
     text-align: center;
     vertical-align: middle;
     font-family: monospace;
-    color: white;
+    background-color: white;
+    font-size: 1.5vw;
+    color: black;
     line-height: 5vw;
-    outline: 1px solid white;
+    outline: 1px solid black;
+}
+
+#buttons div:hover {
+    color: red;
+    font-weight: bold;
+}
+
+#buttons div:active {
+    background-color: grey;
 }
 
