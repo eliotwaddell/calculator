@@ -32,7 +32,7 @@ function operate(operator, num1, num2)
 
 function expression(expr)
 {
-    if(!(expr.charAt(expr.length) <= '9' && expr.charAt(0) >= '0'))//if the expression doesn't end with a number, chop off last operator
+    if(!(expr.charAt(expr.length-1) <= '9' && expr.charAt(expr.length-1) >= '0'))//if the expression doesn't end with a number, chop off last operator
     {
         expr = expr.slice(length-1,length);
     }
@@ -92,7 +92,7 @@ function addToDisplay(newInput)//filters incoming input
         {
             return;
         }
-        if(!(userInput.charAt(userInput.length) >= '0' && userInput.charAt(userInput.length) <= '9'))
+        if(!(userInput.charAt(userInput.length-1) >= '0' && userInput.charAt(userInput.length-1) <= '9'))
         {//if a float doesnt start with a number
             userInput += '0';//set it to be 0.something
         }
@@ -108,6 +108,7 @@ function addToDisplay(newInput)//filters incoming input
             {
                 userInput += newInput;
                 opUsed = true;
+                pointUsed = false;
             }
             return;
         }
@@ -117,6 +118,7 @@ function addToDisplay(newInput)//filters incoming input
         }
         userInput += newInput;
         opUsed = true;
+        pointUsed = false;
         return;
     }
     opUsed = false;
@@ -163,6 +165,14 @@ for (var x of buttons)//iterates through the input buttons to allow them to be u
             update();
         });
     }
+    if(x.id == 'C')
+    {
+        x.addEventListener("click", function(e)
+        {
+            userInput = userInput.substr(0, userInput.length-1);
+            update();
+        });
+    }
     if(x.id == 'SQRT')
     {
         x.addEventListener("click", function(e)
@@ -171,5 +181,3 @@ for (var x of buttons)//iterates through the input buttons to allow them to be u
         });
     }
 }
-expression("99999999");
-console.log(buttons[0].id);
