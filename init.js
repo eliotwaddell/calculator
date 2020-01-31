@@ -92,7 +92,7 @@ function addToDisplay(newInput)//filters incoming input
         {
             return;
         }
-        if(!(userInput.charAt(userInput.length)>= '0' && userInput.charAt(userInput.length)<=0))
+        if(!(userInput.charAt(userInput.length) >= '0' && userInput.charAt(userInput.length) <= '9'))
         {//if a float doesnt start with a number
             userInput += '0';//set it to be 0.something
         }
@@ -102,7 +102,22 @@ function addToDisplay(newInput)//filters incoming input
     }
     if(['+','-','*','/'].indexOf(newInput) != -1)//if the input is an operator
     {
-        
+        if(userInput.length == 0)
+        {
+            if(newInput == '-')
+            {
+                userInput += newInput;
+                opUsed = true;
+            }
+            return;
+        }
+        if(opUsed)
+        {
+            return;
+        }
+        userInput += newInput;
+        opUsed = true;
+        return;
     }
     opUsed = false;
     userInput += newInput;
@@ -137,6 +152,14 @@ for (var x of buttons)//iterates through the input buttons to allow them to be u
             userInput = '';
             opUsed = false;
             pointUsed = false;
+            update();
+        });
+    }
+    if(x.id == '=')
+    {
+        x.addEventListener("click", function(e)
+        {
+            expression(userInput);
             update();
         });
     }
