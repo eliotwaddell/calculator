@@ -91,9 +91,14 @@ function expression(expr)//evaluates entire user input field
         }
     }
     result = floatFix(result);
-    if(!(result>99999999))
+    if(!(result>99999999))//make sure number fits on screen
     {
-        userInput = result.toString();
+        resultString = result.toString();
+        if(result.toString().length>8)//if the number has a lot of decimal spots
+        {
+            resultString = resultString.substr(0,8);//truncate
+        }
+        userInput = resultString;//set final output to be this modified number
     }
     else
     {
@@ -202,14 +207,13 @@ for (var x of buttons)//iterates through the input buttons to allow them to be u
     {
         x.addEventListener("click", function(e)
         {
-
-        });
-    }
-    if(x.id == '^')//allows user to input exponent
-    {
-        x.addEventListener("click", function(e)
-        {
-            
+            expression(userInput);
+            userInput = Math.sqrt(Number(userInput)).toString();
+            if(userInput.length>8)
+            {
+                userInput = userInput.substr(0,8);
+            }
+            update();
         });
     }
 }
