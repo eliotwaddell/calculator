@@ -17,10 +17,6 @@ function operate(operator, num1, num2)//operates independent instructions
     {
         return num1+num2;
     }
-    else if(operator == "-")
-    {
-        return num2*(-1);
-    }
     else if(operator == "*")
     {
         return num1*num2;
@@ -41,12 +37,18 @@ function operate(operator, num1, num2)//operates independent instructions
 
 function expression(expr)//evaluates entire user input field
 {
+    var regex = /-?\d+(\.\d+)?/g;//regular expression for numbers
+    var opRegex = /[+*/^]/g;//all of the operators
     if(!(expr.charAt(expr.length-1) <= '9' && expr.charAt(expr.length-1) >= '0'))//if the expression doesn't end with a number, chop off last operator
     {
         expr = expr.substr(0,expr.length-1);
     }
-    var regex = /\d+(\.\d+)?/g;//regular expression
-    var opRegex = /[+\-*/^]/g;//all of the operators
+    if(expr.charAt(0) == '-')//if the expression starts with a negative number
+    {
+        expr = '0' + expr;
+    }
+    expr = expr.replace('--', '+');//simplify double negatives
+    expr = expr.replace(/([^+*/^])-/g, '$1+-');//eliminates minus sign from operators entirely
     var numbers = expr.match(regex).map(function(v) { return parseFloat(v) });//shoutout stackoverflow, maps each parsed "float" string to a float
     var ops = expr.match(opRegex);//no need to map, ops are strings anyway
     var index = 0;//two tracking variables
@@ -134,11 +136,12 @@ function addToDisplay(newInput)//filters incoming input
         {//if the previous number's decimal was left hanging
             userInput += '0';//add a zero
         }
-        userInput += newInput;
+        userInput += newInput;//operator used case
         opUsed = true;
         pointUsed = false;
         return;
-    }
+    }//number case
+    negative = false;//reset negative
     opUsed = false;//case of number input
     userInput += newInput;
     return;
